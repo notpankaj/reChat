@@ -16,6 +16,20 @@ const getReservations = async (context) => {
   log.end();
   return extra;
 };
+const deleteReservation = async (id, context) => {
+  const log = context.logger.start(`services:deleteReservation: ${id}`);
+  const extra = await db.extra.deleteOne({ _id: id });
+  log.end();
+  return extra;
+};
+const deleteAllReservations = async (context) => {
+  const log = context.logger.start(`services:deleteAllReservations`);
+  const extra = await db.extra.remove({});
+  log.end();
+  return extra;
+};
 
 exports.saveReservation = saveReservation;
 exports.getReservations = getReservations;
+exports.deleteReservation = deleteReservation;
+exports.deleteAllReservations = deleteAllReservations;

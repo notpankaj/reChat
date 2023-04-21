@@ -30,5 +30,33 @@ const getReservations = async (req, res) => {
   }
 };
 
+const deleteReservation = async (req, res) => {
+  const log = req.context.logger.start(`api:deleteReservation${req.params.id}`);
+  try {
+    const data = await service.deleteReservation(req.params.id, req.context);
+    log.end();
+    return response.data(res, data);
+  } catch (err) {
+    log.error(err);
+    log.end();
+    return response.failure(res, err.message);
+  }
+};
+
+const deleteAllReservations = async (req, res) => {
+  const log = req.context.logger.start(`api:deleteAllReservations`);
+  try {
+    const data = await service.deleteAllReservations(req.context);
+    log.end();
+    return response.data(res, data);
+  } catch (err) {
+    log.error(err);
+    log.end();
+    return response.failure(res, err.message);
+  }
+};
+
 exports.saveReservation = saveReservation;
 exports.getReservations = getReservations;
+exports.deleteReservation = deleteReservation;
+exports.deleteAllReservations = deleteAllReservations;

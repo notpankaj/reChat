@@ -97,6 +97,16 @@ const configure = (app, logger) => {
     permit.context.builder,
     api.extra.getReservations
   );
+  app.delete(
+    "/api/extra/deleteAllReservations",
+    permit.context.builder,
+    api.extra.deleteAllReservations
+  );
+  app.delete(
+    "/api/extra/deleteReservation/:id",
+    permit.context.builder,
+    api.extra.deleteReservation
+  );
 
   log.end();
 };

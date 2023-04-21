@@ -40,4 +40,43 @@ module.exports = [
       },
     },
   },
+  {
+    url: "/deleteAllReservations",
+    delete: {
+      summary: "deleteAllReservations",
+      description: "deleteAllReservations",
+      responses: {
+        default: {
+          description: "Unexpected error",
+          schema: {
+            $ref: "#/definitions/Error",
+          },
+        },
+      },
+    },
+  },
+  {
+    url: "/deleteReservation/{id}",
+    delete: {
+      summary: "deleteReservation",
+      description: "deleteReservation",
+      parameters: [
+        {
+          in: "path",
+          type: "id",
+          name: "id",
+          description: "id",
+          required: true,
+        },
+      ],
+      responses: {
+        default: {
+          description: "Unexpected error",
+          schema: {
+            $ref: "#/definitions/Error",
+          },
+        },
+      },
+    },
+  },
 ];
