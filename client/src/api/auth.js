@@ -1,7 +1,7 @@
 import { BASE_URL } from ".";
 
 export const api_login = async (payload) => {
-  const uri = `${BASE_URL}/users/mobilelogin`;
+  const uri = `${BASE_URL}/users/login`;
   const response = await fetch(uri, {
     method: "POST",
     headers: {

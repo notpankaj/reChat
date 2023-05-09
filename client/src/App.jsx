@@ -4,9 +4,11 @@ import SignupPage from "./pages/auth/SignupPage";
 import HomePage from "./pages/HomePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "./redux";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import { useEffect } from "react";
+import { setAuth } from "./redux/feature/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,11 +28,7 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  return (
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
