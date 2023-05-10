@@ -9,6 +9,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useEffect } from "react";
 import { setAuth } from "./redux/feature/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import ProfilePage from "./pages/ProfilePage";
+import ChatPage from "./pages/ChatPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignupPage />,
+  },
+  {
+    path: "profile/:id",
+    element: <ProfilePage />,
+  },
+  {
+    path: "/chat/:otherUserID",
+    element: <ChatPage />,
   },
 ]);
 function App() {

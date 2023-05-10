@@ -317,4 +317,28 @@ module.exports = [
       },
     },
   },
+  {
+    url: "/profile/{id}",
+    get: {
+      summary: "profile",
+      description: "profile",
+      parameters: [
+        {
+          in: "path",
+          type: "string",
+          name: "id",
+          description: "user id",
+          required: true,
+        },
+      ],
+      responses: {
+        default: {
+          description: "Unexpected error",
+          schema: {
+            $ref: "#/definitions/Error",
+          },
+        },
+      },
+    },
+  },
 ];

@@ -34,21 +34,6 @@ const login = async (req, res) => {
   }
 };
 
-// profile user
-const profile = async (req, res) => {
-  const log = req.context.logger.start(`api:users:profile`);
-  try {
-    const user = await service.profile(req.params.id, req.context);
-    const message = "user Profile";
-    log.end();
-    return response.success(res, message, mapper.toModel(user));
-  } catch (err) {
-    log.error(err);
-    log.end();
-    return response.failure(res, err.message);
-  }
-};
-
 // reset password
 const resetPassword = async (req, res) => {
   const log = req.context.logger.start("api:users:resetPassword");
@@ -361,6 +346,21 @@ const userByUsername = async (req, res) => {
       Number(req.query.pageSize) || 10,
       users.length
     );
+  } catch (err) {
+    log.error(err);
+    log.end();
+    return response.failure(res, err.message);
+  }
+};
+
+// profile user
+const profile = async (req, res) => {
+  const log = req.context.logger.start(`api:users:profile`);
+  try {
+    const user = await service.profile(req.params.id, req.context);
+    const message = "user Profile";
+    log.end();
+    return response.success(res, message, user);
   } catch (err) {
     log.error(err);
     log.end();

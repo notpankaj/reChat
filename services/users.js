@@ -135,24 +135,6 @@ const update = async (id, model, context) => {
   return user;
 };
 
-const profile = async (id, context) => {
-  const log = context.logger.start(`services: users: profile`);
-  if (!id) {
-    log.end();
-    throw new Error("user id is required");
-  }
-  let user = await db.user.aggregate([
-    {
-      $match: { _id: ObjectId(id) },
-    },
-  ]);
-  if (!user.length) {
-    throw new Error("user not found");
-  }
-  log.end();
-  return user;
-};
-
 const search = async (name, context) => {
   const log = context.logger.start(`services:users:search`);
   if (!name) {
@@ -612,6 +594,24 @@ const userByUsername = async (query, context) => {
     { $limit: pageSize },
     { $skip: skipCount },
   ]);
+  log.end();
+  return user;
+};
+
+const profile = async (id, context) => {
+  const log = context.logger.start(`services: users: profile`);
+  if (!id) {
+    log.end();
+    throw new Error("user id is required");
+  }
+  let user = await db.user.aggregate([
+    {
+      $match: { _id: ObjectId(id) },
+    },
+  ]);
+  if (!user.length) {
+    throw new Error("user not found");
+  }
   log.end();
   return user;
 };

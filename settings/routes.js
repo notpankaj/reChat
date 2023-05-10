@@ -79,33 +79,13 @@ const configure = (app, logger) => {
     api.users.userByUsername
   );
 
+  app.get("/api/users/profile/:id", permit.context.builder, api.users.profile);
+
   //   -- FOLLOW REQ --- //
   app.post(
     "/api/followRequest/create",
     permit.context.builder,
     api.followRequest.create
-  );
-
-  //   -- EXTRA REQ --- //
-  app.post(
-    "/api/extra/saveReservation",
-    permit.context.builder,
-    api.extra.saveReservation
-  );
-  app.get(
-    "/api/extra/getReservations",
-    permit.context.builder,
-    api.extra.getReservations
-  );
-  app.delete(
-    "/api/extra/deleteAllReservations",
-    permit.context.builder,
-    api.extra.deleteAllReservations
-  );
-  app.delete(
-    "/api/extra/deleteReservation/:id",
-    permit.context.builder,
-    api.extra.deleteReservation
   );
 
   log.end();
