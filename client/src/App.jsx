@@ -11,13 +11,17 @@ import { setAuth } from "./redux/feature/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
 import ChatPage from "./pages/ChatPage";
+import React from "react";
+import socketIOClient from "socket.io-client";
+import useWebSocket from "react-use-websocket";
+import { useRef } from "react";
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ProtectedRoute>
-        <HomePage />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <HomePage />
+      // </ProtectedRoute>
     ),
   },
   {
@@ -37,7 +41,18 @@ const router = createBrowserRouter([
     element: <ChatPage />,
   },
 ]);
+
+const WS_URL = "http://localhost:8001";
 function App() {
+  const socketRef = useRef();
+  useEffect(() => {
+    socketRef.current = socketIOClient(WS_URL);
+    console.log({ socketRef });
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
+
   return <RouterProvider router={router} />;
 }
 

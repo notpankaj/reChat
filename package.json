@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint *--fix",
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "client": "cd client && yarn dev"
   },
   "keywords": [
     "api"
@@ -34,7 +35,7 @@
     "param-case": "^3.0.4",
     "paypal-rest-sdk": "^1.8.1",
     "promise": "^8.1.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^4.6.1",
     "stripe": "^8.210.0"
   }
 }

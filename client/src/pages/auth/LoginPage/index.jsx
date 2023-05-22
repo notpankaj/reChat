@@ -31,15 +31,15 @@ const LoginPage = () => {
     }
   }
 
-  useEffect(() => {
-    try {
-      const localUser = localStorage.getItem("AUTH");
-      if (localUser) dispatch(setAuth(JSON.parse(localUser)));
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     const localUser = localStorage.getItem("AUTH");
+  //     if (localUser) dispatch(setAuth(JSON.parse(localUser)));
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
