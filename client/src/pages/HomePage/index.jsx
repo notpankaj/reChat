@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { authSelector } from "../../redux/feature/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector, logOut } from "../../redux/feature/auth/authSlice";
 import { useState } from "react";
 import { api_searchUserByUsername } from "../../api/user";
 import { useNavigate } from "react-router-dom";
-import useSocket from "../../hook/useSocket";
 import { useRef } from "react";
-import socketIOClient from "socket.io-client";
-const SOCKET_SERVER_URL = "http://localhost:8001";
+
 const HomePage = () => {
   const auth = useSelector(authSelector);
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [userList, setUserList] = useState([]);
   const [searchTextLoading, setSearchTextLoading] = useState(false);
@@ -28,17 +27,9 @@ const HomePage = () => {
     }
   };
 
-  const socketRef = useRef();
-  useEffect(() => {
-    socketRef.current = socketIOClient(SOCKET_SERVER_URL);
-    console.log({ socketRef });
-    return () => {
-      socketRef.current.disconnect();
-    };
-  }, []);
-
   return (
     <div>
+      <button onClick={() => dispatch(logOut())}>LOGOUT</button>
       <h2>USERNAME: {auth?.username}</h2>
       <div>
         <input

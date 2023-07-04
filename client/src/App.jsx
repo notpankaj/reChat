@@ -2,58 +2,45 @@ import "./App.css";
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import HomePage from "./pages/HomePage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { store } from "./redux";
-import { Provider, useDispatch } from "react-redux";
-import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect } from "react";
-import { setAuth } from "./redux/feature/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
 import ChatPage from "./pages/ChatPage";
 import React from "react";
-import socketIOClient from "socket.io-client";
-import useWebSocket from "react-use-websocket";
-import { useRef } from "react";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      // <ProtectedRoute>
-      <HomePage />
-      // </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "signup",
-    element: <SignupPage />,
-  },
-  {
-    path: "profile/:id",
-    element: <ProfilePage />,
-  },
-  {
-    path: "/chat/:otherUserID",
-    element: <ChatPage />,
-  },
-]);
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getLocalUser,
+  setAuth,
+  tokenSelector,
+} from "./redux/feature/auth/authSlice";
 
-const WS_URL = "http://localhost:8001";
 function App() {
-  const socketRef = useRef();
-  useEffect(() => {
-    socketRef.current = socketIOClient(WS_URL);
-    console.log({ socketRef });
-    return () => {
-      socketRef.current.disconnect();
-    };
+  const token = useSelector(tokenSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (token) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  }, [token]);
+  React.useEffect(() => {
+    const user = getLocalUser();
+    console.log(user);
+    if (user) {
+      dispatch(setAuth(user));
+    }
   }, []);
 
-  return <RouterProvider router={router} />;
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="chat/:otherUserID" element={<ChatPage />} />
+      <Route path="profile/:id" element={<ProfilePage />} />
+    </Routes>
+  );
 }
 
 export default App;

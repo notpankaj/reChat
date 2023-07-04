@@ -4,7 +4,7 @@ const express = require("express");
 const appConfig = require("config").get("app");
 const logger = require("@open-age/logger")("server");
 const Http = require("http");
-const port = 8001;
+const port = 8080;
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -26,6 +26,7 @@ const init = async () => {
   await require("./settings/database").configure(logger);
   await require("./settings/express").configure(app, logger);
   await require("./settings/routes").configure(app, logger);
+  await require("./socket/index").configure(server);
   app.get("/chat", function (req, res) {
     res.sendFile(__dirname + "/templates/index.html");
   });
@@ -34,12 +35,3 @@ const init = async () => {
 };
 
 init();
-const { Server } = require("socket.io");
-
-const io = new Server(server, {
-  cors: "*",
-});
-
-io.on("connection", function (socket) {
-  console.log("socket", socket);
-});

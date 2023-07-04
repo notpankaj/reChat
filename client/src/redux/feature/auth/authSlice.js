@@ -8,9 +8,17 @@ const initialState = {
 const setLocalUser = (user) => {
   localStorage.setItem("AUTH", JSON.stringify(user));
 };
+export const getLocalUser = () => {
+  const user = localStorage.getItem("AUTH");
+  if (user) {
+    return JSON.parse(user);
+  } else {
+    return null;
+  }
+};
 
 const destroyLocalStorage = () => {
-  localStorage.setItem("AUTH", null);
+  localStorage.removeItem("AUTH");
 };
 
 export const authSlice = createSlice({

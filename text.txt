@@ -1,16 +1,4 @@
-git remote add origin https://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@github.com/notpankaj/reChat
+mongo-> test6969
+password -> iAyBIKIm0STnPOOw
 
-
-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
-
-
-
-1. on App Load connect socket 
-2. get roomId onLoad of chat screen by other userRoomId and our UseriD
-    -> if we have room well return roomId
-    -> else we will create room and then return roomId
-
-
-
-
-
+mongodb+srv://test6969:iAyBIKIm0STnPOOw@cluster0.1hkmkvq.mongodb.net/?retryWrites=true&w=majority

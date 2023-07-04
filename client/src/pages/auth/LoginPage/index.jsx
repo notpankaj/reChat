@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { api_login } from "../../../api/auth";
 import { useDispatch } from "react-redux";
-import { setAuth, tokenSelector } from "../../../redux/feature/auth/authSlice";
+import { setAuth } from "../../../redux/feature/auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("12345678");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   async function handleSubmit() {
     if (!password) return;
     if (!username) return;
@@ -30,16 +30,6 @@ const LoginPage = () => {
       setLoading(false);
     }
   }
-
-  // useEffect(() => {
-  //   try {
-  //     const localUser = localStorage.getItem("AUTH");
-  //     if (localUser) dispatch(setAuth(JSON.parse(localUser)));
-  //     navigate("/");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

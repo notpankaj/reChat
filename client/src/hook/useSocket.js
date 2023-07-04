@@ -1,20 +1,20 @@
-import { useEffect, useRef } from "react";
-import socketIOClient from "socket.io-client";
-
-const SOCKET_SERVER_URL = "ws://localhost:8001";
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { SOCKET_SERVER_URL } from "../api/index";
 
 const useSocket = () => {
-  const socketRef = useRef();
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    socketRef.current = socketIOClient(SOCKET_SERVER_URL);
-
+    const newSocket = io(SOCKET_SERVER_URL);
+    setSocket(newSocket);
+    // Clean up socket on unmount
     return () => {
-      socketRef.current.disconnect();
+      newSocket.disconnect();
     };
   }, []);
 
-  return { socket: socketRef.current };
+  return socket;
 };
 
 export default useSocket;
